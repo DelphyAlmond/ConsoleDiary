@@ -2,10 +2,11 @@ import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
 
-        boolean flag = true;
-        Scanner console = new Scanner(System.in);
+    static boolean flag = true;
+    static Scanner console = new Scanner(System.in);
+
+    public static void main(String[] args) {
 
         Diary TaskLists = new Diary();
 
@@ -30,17 +31,10 @@ public class Main {
 
                 case (0) :
                     // register & add exact task
-                    System.out.println("}*- Enter time when event / task starts :");
-                    System.out.println("\t| Format is [int hour], [int minutes] |");
-                    System.out.print("\n > ");
-                    Integer hour = console.nextInt();
-                    System.out.print(" : ");
-                    Integer minutes = console.nextInt();
+                    int[] HM = timeEnter();
+                    if (HM != null) {
+                        String time = ((Integer)HM[0]).toString() + ":" + ((Integer)HM[1]).toString();
 
-                    if (hour > 23 && minutes > 59) {
-                        System.out.println("\n< ERROR > Incorrect time format.");
-                        break;
-                    } else {
                         System.out.println("}*- Write a task that has to be done :");
                         System.out.println("\t| Format is [string text] |");
                         System.out.print("\n > ");
@@ -51,7 +45,6 @@ public class Main {
                         System.out.print("\n > ");
                         String note = (console.nextLine() == "\n") ? null : console.nextLine();
 
-                        String time = hour.toString() + ":" + minutes.toString();
                         LocalTime currCreatingTime = LocalTime.now();
 
                         TaskLine taskObj = new TaskLine(task, note, time, currCreatingTime.toString());
@@ -77,18 +70,34 @@ public class Main {
                     }
                     else {
                         TaskLine tskObj = currList.getTaskAt(place);
+                        editingCommands();
+                        // String command = console.nextLine();
+                        int command = console.nextInt();
 
-                        System.out.println("< Task is successfully extracted >");
+                        if (command == 1)
+                        {
+                            int[] newHM = timeEnter();
+                            if (newHM != null) {
+                                tskObj.editTime(((Integer)newHM[0]).toString()
+                                        + ":" + ((Integer)newHM[1]).toString());
+                            }
+                        }
+                        else if (command == 2)
+                        {
+                            tskObj.setNewNotes(console.nextLine());
+                        }
+                        else if (command == 3)
+                        {
+                            tskObj.setDoneToTrue();
+                        }
+                        else {
+                            currList.deleteTaskAt(place);
+                        }
 
-                        System.out.println(" \t\t> To delete this task, enter 'r' / 'remove'");
-                        System.out.println(" \t\t> To edit it's time, enter 't' / 'time'");
-                        System.out.println(" \t\t> To change it's notes, enter 'n' / 'notes'");
-                        System.out.println(" \t\t> To mark task as completed, enter 'd' / 'done'");
-
-                        // future EDITING [!!!]
+                        currList.setUpdatedtask(tskObj, place);
 
                         LocalTime currEditingTime = LocalTime.now();
-                        tskObj.setEdit(currEditingTime.toString());
+                        tskObj.setEditTime(currEditingTime.toString());
                     }
                     break;
 
@@ -126,5 +135,31 @@ public class Main {
         System.out.println(" [2] - edit exact task"); // [!!!] fin
         System.out.println(" [3] - choose another date");
         System.out.println(" [4] - create date list");
+    }
+
+    private static void editingCommands()
+    {
+        System.out.println("< Task is successfully extracted >\nChoose what do you want to edit :");
+        System.out.println(" \t\t> To delete this task, enter - 0");
+        System.out.println(" \t\t> To edit it's time, enter - 1");
+        System.out.println(" \t\t> To change it's notes, enter - 2");
+        System.out.println(" \t\t> To mark task as completed, enter - 3");
+    }
+
+    private static int[] timeEnter()
+    {
+        System.out.println("}*- Enter time when event / task starts :");
+        System.out.println("\t| Format is [int hour], [int minutes] |");
+        System.out.print("\n > ");
+        Integer hour = console.nextInt();
+        System.out.print(" : ");
+        Integer minutes = console.nextInt();
+
+        int[] arr = {hour, minutes};
+        if (hour > 23 && minutes > 59) {
+            System.out.println("\n< ERROR > Incorrect time format.");
+            return null;
+        }
+        return arr;
     }
 }

@@ -30,16 +30,20 @@ public class TaskLine {
         crTime = createdT;
         strTask = task;
         taskNotes = additionalInf;
-
-        // (for future update)
-        // String[] tNums = timeStr.split(":");
-        // int hour = Integer.getInteger(tNums[0]);
-        // int minutes = Integer.getInteger(tNums[1]);
-
         time = timeStr;
     }
 
-    public void setEdit(String et)
+    public void editTime(String t)
+    {
+        time = t;
+    }
+
+    public void setNewNotes(String txt)
+    {
+        taskNotes = txt;
+    }
+
+    public void setEditTime(String et)
     {
         edTime = et;
     }

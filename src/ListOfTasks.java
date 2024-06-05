@@ -25,6 +25,11 @@ public class ListOfTasks {
         size = 0;
     }
 
+    public void setUpdatedtask(TaskLine tsk, int place)
+    {
+        tasks[place - 1] = tsk;
+    }
+
     public void addTask(TaskLine tsk) // adds task, resizing the list
     {
         size++;
@@ -38,6 +43,21 @@ public class ListOfTasks {
             i++;
         }
         tasksNew[size - 1] = tsk;
+        tasks = tasksNew;
+    }
+
+    public void deleteTaskAt(int plc)
+    {
+        TaskLine[] tasksNew = new TaskLine[--size];
+        int i = 0;
+        for (TaskLine t : tasks)
+        {
+            if (i != plc - 1) {
+                tasksNew[i] = t;
+                tasksNew[i].setCode(i + 1);
+                i++;
+            }
+        }
         tasks = tasksNew;
     }
 
