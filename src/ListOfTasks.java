@@ -34,13 +34,13 @@ public class ListOfTasks {
     {
         size++;
         TaskLine[] tasksNew = new TaskLine[size];
-
-        int i = 0;
-        for (TaskLine t : tasks)
-        {
-            tasksNew[i] = t;
-            tasksNew[i].setCode(i + 1);
-            i++;
+        if (tasks.length > 0) {
+            int i = 0;
+            for (TaskLine t : tasks) {
+                tasksNew[i] = t;
+                tasksNew[i].setCode(i + 1);
+                i++;
+            }
         }
         tasksNew[size - 1] = tsk;
         tasks = tasksNew;
@@ -50,12 +50,13 @@ public class ListOfTasks {
     {
         TaskLine[] tasksNew = new TaskLine[--size];
         int i = 0;
-        for (TaskLine t : tasks)
-        {
-            if (i != plc - 1) {
-                tasksNew[i] = t;
-                tasksNew[i].setCode(i + 1);
-                i++;
+        if (tasks.length > 0) {
+            for (TaskLine t : tasks) {
+                if (i != plc - 1) {
+                    tasksNew[i] = t;
+                    tasksNew[i].setCode(i + 1);
+                    i++;
+                }
             }
         }
         tasks = tasksNew;
@@ -63,13 +64,6 @@ public class ListOfTasks {
 
     public void showList()
     {
-        // prints list in such way as :
-        // 1. Task to complete on that day [ 0 ]
-        //    note...
-        // -------------------------------------
-        // 2. Another task [ V ]
-        //    note...
-
         TaskLine[] doneTasks = new TaskLine[size];
 
         int i = 0, k = 0;

@@ -23,11 +23,12 @@ public class Diary {
         size++;
         ListOfTasks[] listsNew = new ListOfTasks[size];
 
-        int i = 0;
-        for (ListOfTasks d : days)
-        {
-            listsNew[i] = d;
-            i++;
+        if (days.length > 0) {
+            int i = 0;
+            for (ListOfTasks d : days) {
+                listsNew[i] = d;
+                i++;
+            }
         }
         listsNew[size - 1] = listObj;
         days = listsNew;
