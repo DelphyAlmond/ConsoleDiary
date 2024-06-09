@@ -24,12 +24,16 @@ public class TaskLine {
         currCode = i;
     }
 
-    public TaskLine(String task, String additionalInf, String timeStr,
+    public int getCode()
+    {
+        return currCode;
+    }
+
+    public TaskLine(String task, String timeStr,
                     String createdT)
     {
         crTime = createdT;
         strTask = task;
-        taskNotes = additionalInf;
         time = timeStr;
     }
 
@@ -51,23 +55,42 @@ public class TaskLine {
     public String convertToLine(int next)
     {
         currCode = next;
-        int lenOfTaskStr = strTask.length();
-        int lenOfTaskNotes = taskNotes.length();
 
-        int leftStrChars = lenOfTaskNotes % lenOfTaskStr;
+        String wholeInf = ("\n < " + time + " > " + "\n" + (Integer)currCode).toString() + ". "
+                + strTask + " " + (done ? "[ V ]" : "[ 0 ]") + " |" + crTime.substring(0, 5)
+                + "\n" + (edTime == null ? "(|wasn't edited yet)" :
+                "|" + edTime.substring(0, 5) + "\n\n");
 
-        String wholeInf = (" < " + time + " > " + "\n" + (Integer)currCode).toString() + ". "
-                + strTask + " " + (done ? "[ V ]" : "[ 0 ]") + "|" + crTime + "\n" +
-                (edTime == null ? "(|wasn't edited yet)" : "|" + edTime);
+        if (taskNotes != null) {
+            int lenOfTaskStr = strTask.length();
+            int lenOfTaskNotes = taskNotes.length();
+            int leftStrChars = lenOfTaskNotes % lenOfTaskStr;
 
-        int s = 0;
-        for (int steps = 1; steps <= lenOfTaskNotes / lenOfTaskStr; steps++)
-        {
-            wholeInf += "\t" + taskNotes.substring(s, lenOfTaskStr * steps) + "\n";
-            s += lenOfTaskStr;
+            int s = 0;
+            for (int steps = 1; steps <= lenOfTaskNotes / lenOfTaskStr; steps++) {
+                wholeInf += "\t" + taskNotes.substring(s, lenOfTaskStr * steps) + "\n";
+                s += lenOfTaskStr;
+            }
+            wholeInf += "\t" + taskNotes.substring(s, s + leftStrChars) + "\n";
         }
-
-        wholeInf += "\t" + taskNotes.substring(s, s + leftStrChars) + "\n";
         return wholeInf;
+    }
+
+    public String writeToFileFormat()
+    {
+        String fileTaskLine = (((Integer)currCode).toString() + "\n" + time + "\n"
+                + strTask + "\n" + taskNotes + "\n" + (done ? "1" : "0") +
+                "\n" + crTime.substring(0, 5) + "\n" +
+                (edTime == null ? "-" : edTime.substring(0, 5) + "\n"));
+
+        // task code (place)  n
+        // task time          h:m
+        // task name          txt
+        // notes              txt       => 7 lines
+        // mark (0\V)         0 / 1
+        // creation time      local t
+        // edited time        local t
+
+        return fileTaskLine;
     }
 }

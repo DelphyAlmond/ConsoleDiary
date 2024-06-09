@@ -3,6 +3,7 @@ public class ListOfTasks {
     private String date;
     private TaskLine[] tasks;
     private int size;
+    private String forFileWr;
 
     public String dateKey()
     {
@@ -16,7 +17,16 @@ public class ListOfTasks {
 
     public TaskLine getTaskAt(int indx)
     {
-        return tasks[indx - 1];
+        int i = 0;
+        for (TaskLine tsk : tasks)
+        {
+            if (tsk.getCode() == indx)
+            {
+                return tasks[i];
+            }
+            i++;
+        }
+        return null;
     }
 
     public ListOfTasks(String monthDay)
@@ -25,7 +35,12 @@ public class ListOfTasks {
         size = 0;
     }
 
-    public void setUpdatedtask(TaskLine tsk, int place)
+    public String getFileFormat()
+    {
+        return forFileWr;
+    }
+
+    public void setUpdatedTask(TaskLine tsk, int place)
     {
         tasks[place - 1] = tsk;
     }
@@ -34,7 +49,7 @@ public class ListOfTasks {
     {
         size++;
         TaskLine[] tasksNew = new TaskLine[size];
-        if (tasks.length > 0) {
+        if (tasks != null && tasks.length > 0) {
             int i = 0;
             for (TaskLine t : tasks) {
                 tasksNew[i] = t;
@@ -64,7 +79,10 @@ public class ListOfTasks {
 
     public void showList()
     {
+        forFileWr = date + "/24\n";
         TaskLine[] doneTasks = new TaskLine[size];
+
+        System.out.print(" -<* " + date + "/2024 *>- ");
 
         int i = 0, k = 0;
         for (TaskLine t : tasks)
@@ -73,6 +91,8 @@ public class ListOfTasks {
             if (!t.getCondition())
             {
                 System.out.print(t.convertToLine(i));
+                // after code(index)* was set :
+                forFileWr += t.writeToFileFormat();
             }
             else
             {
@@ -81,13 +101,16 @@ public class ListOfTasks {
             }
         }
 
-        System.out.println("< COMPLETED > -----------------------------------------------------");
+        if (doneTasks[0] != null) {
+            System.out.println("< COMPLETED > ----------------------------------------------");
+            // forFileWr += "----------------------------------------------------------------";
 
-        for (TaskLine t : doneTasks)
-        {
-            if (i <= size) {
-                System.out.print(t.convertToLine(i));
-                i++;
+            for (TaskLine t : doneTasks) {
+                if (i <= size) {
+                    System.out.print(t.convertToLine(i));
+                    forFileWr += t.writeToFileFormat();
+                    i++;
+                }
             }
         }
     }
