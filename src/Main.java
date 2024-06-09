@@ -103,7 +103,7 @@ public class Main {
                             LocalTime currEditingTime = LocalTime.now();
                             tskObj.setEditTime(currEditingTime.toString());
                         }
-                        System.out.println("\n< ERROR > Can't extract & edit the task.");
+                        else System.out.println("\n< ERROR > Can't extract & edit the task.");
                     }
                     correct = true;
                     break;

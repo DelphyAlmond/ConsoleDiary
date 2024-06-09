@@ -59,7 +59,7 @@ public class TaskLine {
         String wholeInf = ("\n < " + time + " > " + "\n" + (Integer)currCode).toString() + ". "
                 + strTask + " " + (done ? "[ V ]" : "[ 0 ]") + " |" + crTime.substring(0, 5)
                 + "\n" + (edTime == null ? "(|wasn't edited yet)" :
-                "|" + edTime.substring(0, 5) + "\n\n");
+                "|" + edTime.substring(0, 5));
 
         if (taskNotes != null) {
             int lenOfTaskStr = strTask.length();
@@ -68,10 +68,10 @@ public class TaskLine {
 
             int s = 0;
             for (int steps = 1; steps <= lenOfTaskNotes / lenOfTaskStr; steps++) {
-                wholeInf += "\t" + taskNotes.substring(s, lenOfTaskStr * steps) + "\n";
+                wholeInf += "\n" + taskNotes.substring(s, lenOfTaskStr * steps);
                 s += lenOfTaskStr;
             }
-            wholeInf += "\t" + taskNotes.substring(s, s + leftStrChars) + "\n";
+            wholeInf += taskNotes.substring(s, s + leftStrChars) + "\n";
         }
         return wholeInf;
     }

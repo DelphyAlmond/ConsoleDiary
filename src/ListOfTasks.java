@@ -20,7 +20,7 @@ public class ListOfTasks {
         int i = 0;
         for (TaskLine tsk : tasks)
         {
-            if (tsk.getCode() == indx)
+            if (tsk.getCode() == indx - 1)
             {
                 return tasks[i];
             }
@@ -102,7 +102,7 @@ public class ListOfTasks {
         }
 
         if (doneTasks[0] != null) {
-            System.out.println("< COMPLETED > ----------------------------------------------");
+            System.out.println("\n< COMPLETED > ----------------------------------------------");
             // forFileWr += "----------------------------------------------------------------";
 
             for (TaskLine t : doneTasks) {

@@ -1,0 +1,28 @@
+1
+5
+24/6/24
+1
+8:26
+Cook breakfast, pelmeni
+null
+0
+19:13
+-2
+9:34
+Do morning exercizes
+after washing the dishes
+0
+19:15
+-3
+12:15
+House chores
+Vacuuming, *dishwasher, *carpet + mopping floor
+0
+19:17
+-5
+13:0
+Send application
+see gmail.com, new messages
+1
+19:19
+19:21
