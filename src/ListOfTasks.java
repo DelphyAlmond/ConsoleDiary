@@ -20,7 +20,7 @@ public class ListOfTasks {
         int i = 0;
         for (TaskLine tsk : tasks)
         {
-            if (tsk.getCode() == indx - 1)
+            if (tsk.getCode() == indx)
             {
                 return tasks[i];
             }
@@ -81,37 +81,39 @@ public class ListOfTasks {
     {
         forFileWr = date + "/24\n";
         TaskLine[] doneTasks = new TaskLine[size];
-
         System.out.print(" -<* " + date + "/2024 *>- ");
 
-        int i = 0, k = 0;
-        for (TaskLine t : tasks)
-        {
-            i++;
-            if (!t.getCondition())
-            {
-                System.out.print(t.convertToLine(i));
-                // after code(index)* was set :
-                forFileWr += t.writeToFileFormat();
-            }
-            else
-            {
-                doneTasks[k] = t;
-                k++;
-            }
-        }
-
-        if (doneTasks[0] != null) {
-            System.out.println("\n< COMPLETED > ----------------------------------------------");
-            // forFileWr += "----------------------------------------------------------------";
-
-            for (TaskLine t : doneTasks) {
-                if (i <= size) {
-                    System.out.print(t.convertToLine(i));
-                    forFileWr += t.writeToFileFormat();
+        if (tasks != null) {
+            TaskLine[] newTasks = new TaskLine[size];
+            int i = 0, k = 0;
+            for (TaskLine t : tasks) {
+                if (!t.getCondition()) {
                     i++;
+                    t.setCode(i);
+                    System.out.print(t.convertToLine());
+                    // after code(index)* was set :
+                    forFileWr += t.writeToFileFormat();
+                    newTasks[i - 1] = t;
+                } else {
+                    doneTasks[k] = t;
+                    k++;
                 }
             }
+
+            if (doneTasks[0] != null) {
+                System.out.println("\n< COMPLETED > ----------------------------------------------");
+                for (TaskLine t : doneTasks) {
+                    if (i <= size && t != null) {
+                        i++;
+                        System.out.print(t.convertToLine());
+                        forFileWr += t.writeToFileFormat();
+                        newTasks[i - 1] = t;
+                    }
+                }
+            }
+
+            tasks = newTasks;
         }
+        else System.out.println("\n< LIST IS EMPTY RN > Write down some tasks.");
     }
 }

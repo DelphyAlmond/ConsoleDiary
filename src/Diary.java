@@ -57,6 +57,8 @@ public class Diary {
             diary += day.getFileFormat();
         }
 
+        System.out.println(diary);
+
         return diary;
     }
 }

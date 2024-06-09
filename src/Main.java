@@ -11,7 +11,7 @@ public class Main {
         Diary TaskLists = new Diary();
         boolean correct;
 
-        System.out.println("}*- Diary is empty rn, first of all add (create) new List.");
+        System.out.println("}*- Diary is empty by default, first of all add (create) new taskList.");
         int[] DM = dateEnter();
         ListOfTasks currList = new ListOfTasks(DM[0] + "/" + DM[1]);
         TaskLists.addDay(currList);
@@ -173,34 +173,73 @@ public class Main {
 
     private static int[] timeEnter()
     {
-        System.out.println("}*- Enter time when event / task starts :");
-        System.out.println("\t| Format is [int hour], [int minutes] |\n > ");
-        Integer hour = console.nextInt();
-        console.nextLine();
+        int h = 1, m = 1;
+        boolean flag = true;
+        int[] arr = null;
 
-        System.out.print(hour.toString() + " : ");
-        Integer minutes = console.nextInt();
-        console.nextLine();
+        while (flag) {
+            boolean hours = false, minutes = false;
 
-        int[] arr = {hour, minutes};
-        if (hour > 23 && minutes > 59) {
-            System.out.println("\n< ERROR > Incorrect time format.");
-            return null;
+            System.out.println("}*- Enter time when event / task starts :");
+            System.out.println("\t| Format is [int hour] | > ");
+            try {
+                h = Integer.parseInt(console.nextLine());
+            } catch (NumberFormatException e) {
+                hours = true;
+            }
+
+            System.out.print(h + "\t| [int minutes] | > : ");
+            try {
+                m = Integer.parseInt(console.nextLine());
+            } catch (NumberFormatException e) {
+                minutes = true;
+            }
+
+            if (!hours && !minutes) {
+                if (!(h > 23 && m > 59)) {
+                    arr = new int[]{h, m};
+                    flag = false;
+                }
+                else System.out.println("\n< ERROR > Incorrect values for time, try again : ");
+            }
+            else System.out.println("\n< ERROR > Incorrect time format, try again : ");
         }
         return arr;
     }
 
     private static int[] dateEnter()
     {
-        System.out.println("}*- Enter the date you want to write down plans at :");
-        System.out.print("\t| Format is [int day], [int month] |\n > day - ");
-        int day = console.nextInt();
-        console.nextLine();
-        System.out.print(" , month - ");
-        int mon = console.nextInt();
-        console.nextLine();
+        int d = 1, m = 1;
+        boolean flag = true;
+        int[] arr = null;
 
-        int[] arr = {day, mon};
+        while (flag) {
+            boolean day = false, month = false;
+
+            System.out.println("}*- Enter the date you want to write down plans at :");
+            System.out.print("\t| Format is [int day] | > day - ");
+            try {
+                d = Integer.parseInt(console.nextLine());
+            } catch (NumberFormatException e) {
+                day = true;
+            }
+
+            System.out.print("\t| [int month] | >       month - ");
+            try {
+                m = Integer.parseInt(console.nextLine());
+            } catch (NumberFormatException e) {
+                month = true;
+            }
+
+            if (!day && !month) {
+                if (!(d > 31 || m > 12 || m == 0 || d == 0)) {
+                    arr = new int[]{d, m};
+                    flag = false;
+                }
+                else System.out.println("\n< ERROR > Incorrect date values, try again : ");
+            }
+            else System.out.println("\n< ERROR > Incorrect date format, try again : ");
+        }
         return arr;
     }
 }

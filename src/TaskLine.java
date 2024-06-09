@@ -52,10 +52,9 @@ public class TaskLine {
         edTime = et;
     }
 
-    public String convertToLine(int next)
+    public String convertToLine()
     {
-        currCode = next;
-
+        // currCode = next;
         String wholeInf = ("\n < " + time + " > " + "\n" + (Integer)currCode).toString() + ". "
                 + strTask + " " + (done ? "[ V ]" : "[ 0 ]") + " |" + crTime.substring(0, 5)
                 + "\n" + (edTime == null ? "(|wasn't edited yet)" :
@@ -81,7 +80,7 @@ public class TaskLine {
         String fileTaskLine = (((Integer)currCode).toString() + "\n" + time + "\n"
                 + strTask + "\n" + taskNotes + "\n" + (done ? "1" : "0") +
                 "\n" + crTime.substring(0, 5) + "\n" +
-                (edTime == null ? "-" : edTime.substring(0, 5) + "\n"));
+                (edTime == null ? "-\n" : edTime.substring(0, 5) + "\n"));
 
         // task code (place)  n
         // task time          h:m
