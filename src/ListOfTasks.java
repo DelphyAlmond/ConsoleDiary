@@ -105,6 +105,7 @@ public class ListOfTasks {
                 for (TaskLine t : doneTasks) {
                     if (i <= size && t != null) {
                         i++;
+                        t.setCode(i);
                         System.out.print(t.convertToLine());
                         forFileWr += t.writeToFileFormat();
                         newTasks[i - 1] = t;

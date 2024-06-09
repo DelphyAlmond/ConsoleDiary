@@ -1,24 +1,32 @@
+2
+3 1
+19/6/24
 1
-3
-18/6/24
-1
-7:12
-Cook breakfast
+8:30
+Walk the dog
 null
 0
-00:24
+00:32
 -
 2
-8:36
-Walk the dog
-remember to visit post office
+16:45
+prepare for gym
+*carpet & bottle of water
 0
-00:25
+00:33
 -
-3
-10:30
-Prepare for interview
-check email on gmail & send application
+1
+7:12
+breakfast cooking
+after morning routine
+1
+00:31
+00:35
+20/6/24
+1
+12:50
+Prepare to interview
+files & application check
 0
-00:26
+00:37
 -
