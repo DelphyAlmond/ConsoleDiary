@@ -61,9 +61,10 @@ public class FileCoder {
 
                     TaskLine taskLine = new TaskLine(task, taskTime, crTime);
                     taskLine.setCode(place);
-                    taskLine.setNewNotes(notes);
+                    if (notes.contains("-")) taskLine.setNewNotes(notes);
                     if (done) taskLine.setDoneToTrue();
-                    if (edTime != "-") taskLine.setEditTime(edTime);
+                    if (edTime.contains("-")) taskLine.setEditTime(null);
+                    else taskLine.setEditTime(edTime);
 
                     newDate.addTask(taskLine);
                 }

@@ -56,9 +56,9 @@ public class TaskLine {
     {
         // currCode = next;
         String wholeInf = ("\n < " + time + " > " + "\n" + (Integer)currCode).toString() + ". "
-                + strTask + " " + (done ? "[ V ]" : "[ 0 ]") + " |" + crTime.substring(0, 5)
+                + strTask + " " + (done ? "[ V ]" : "[ 0 ]") + " |" + crTime
                 + "\n" + (edTime == null ? "(|wasn't edited yet)" :
-                "|" + edTime.substring(0, 5));
+                "|" + edTime);
 
         if (taskNotes != null) {
             int lenOfTaskStr = strTask.length();
@@ -78,9 +78,9 @@ public class TaskLine {
     public String writeToFileFormat()
     {
         String fileTaskLine = (((Integer)currCode).toString() + "\n" + time + "\n"
-                + strTask + "\n" + taskNotes + "\n" + (done ? "1" : "0") +
-                "\n" + crTime.substring(0, 5) + "\n" +
-                (edTime == null ? "-\n" : edTime.substring(0, 5) + "\n"));
+                + strTask + "\n" + (taskNotes == null ? "-\n" : taskNotes + "\n")
+                + "\n" + (done ? "1" : "0") + "\n" + crTime + "\n" +
+                (edTime == null ? "-\n" : edTime + "\n"));
 
         // task code (place)  n
         // task time          h:m
